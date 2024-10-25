@@ -1,0 +1,62 @@
+<Employees>
+    <Employee>
+        <employeeID>E001</employeeID>
+        <name>John Doe</name>
+        <department>IT</department>
+    </Employee>
+    <Employee>
+        <employeeID>E002</employeeID>
+        <name>Jane Smith</name>
+        <department>Finance</department>
+    </Employee>
+    <Employee>
+        <employeeID>E003</employeeID>
+        <name>Emily Johnson</name>
+        <department>HR</department>
+    </Employee>
+    <Employee>
+        <employeeID>E004</employeeID>
+        <name>Michael Brown</name>
+        <department>Marketing</department>
+    </Employee>
+    <Employee>
+        <employeeID>E005</employeeID>
+        <name>Jessica Davis</name>
+        <department>Sales</department>
+    </Employee>
+    <Employee>
+        <employeeID>E006</employeeID>
+        <name>Chris Wilson</name>
+        <department>Logistics</department>
+    </Employee>
+    <Employee>
+        <employeeID>E007</employeeID>
+        <name>Amanda Taylor</name>
+        <department>Support</department>
+    </Employee>
+    <Employee>
+        <employeeID>E008</employeeID>
+        <name>David Martinez</name>
+        <department>R&D</department>
+    </Employee>
+    <Employee>
+        <employeeID>E009</employeeID>
+        <name>Linda Garcia</name>
+        <department>Finance</department>
+    </Employee>
+    <Employee>
+        <employeeID>E010</employeeID>
+        <name>James Rodriguez</name>
+        <department>IT</department>
+    </Employee>
+    <Employee>
+        <employeeID>E011</employeeID>
+        <name>Patricia Lopez</name>
+        <department>HR</department>
+    </Employee>
+    <Employee>
+        <employeeID>E012</employeeID>
+        <name>Robert Anderson</name>
+        <department>Marketing</department>
+    </Employee>
+</Employees>
