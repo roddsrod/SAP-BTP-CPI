@@ -1,0 +1,386 @@
+<Employees>
+  <Employee>
+    <employeeID>E001</employeeID>
+    <parkingSpot>A101</parkingSpot>
+    <name>John Doe</name>
+    <laptopSerialNumber>LP789456</laptopSerialNumber>
+    <socialSecurityNumber>123-45-6789</socialSecurityNumber>
+    <email>john.doe@company.com</email>
+    <bankAccount>GB82WEST12345698765432</bankAccount>
+    <position>Senior Developer</position>
+    <maritalStatus>Married</maritalStatus>
+    <phoneNumber>+1-212-555-0101</phoneNumber>
+    <department>IT</department>
+    <emergencyContact>Mary Doe</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 3</officeLocation>
+    <baseSalary>75000</baseSalary>
+    <skillSet>Java,Python,SAP</skillSet>
+    <overtimeRate>35.50</overtimeRate>
+    <projectCode>PRJ001</projectCode>
+    <healthInsurance>Premium Plan</healthInsurance>
+    <vacationDays>15</vacationDays>
+    <dependents>2</dependents>
+    <taxFilingStatus>Married Filing Jointly</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E002</employeeID>
+    <parkingSpot>A102</parkingSpot>
+    <name>Jane Smith</name>
+    <laptopSerialNumber>LP123654</laptopSerialNumber>
+    <socialSecurityNumber>987-65-4321</socialSecurityNumber>
+    <email>jane.smith@company.com</email>
+    <bankAccount>GB29NWBK60161331926819</bankAccount>
+    <position>Project Manager</position>
+    <maritalStatus>Single</maritalStatus>
+    <phoneNumber>+1-212-555-0202</phoneNumber>
+    <department>Operations</department>
+    <emergencyContact>Michael Smith</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 2</officeLocation>
+    <baseSalary>85000</baseSalary>
+    <skillSet>Agile,Leadership,MS Project</skillSet>
+    <overtimeRate>40.00</overtimeRate>
+    <projectCode>PRJ002</projectCode>
+    <healthInsurance>Standard Plan</healthInsurance>
+    <vacationDays>20</vacationDays>
+    <dependents>0</dependents>
+    <taxFilingStatus>Single</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E003</employeeID>
+    <parkingSpot>A103</parkingSpot>
+    <name>Robert Johnson</name>
+    <laptopSerialNumber>LP741852</laptopSerialNumber>
+    <socialSecurityNumber>234-56-7890</socialSecurityNumber>
+    <email>robert.johnson@company.com</email>
+    <bankAccount>GB94BARC20201530093459</bankAccount>
+    <position>HR Specialist</position>
+    <maritalStatus>Divorced</maritalStatus>
+    <phoneNumber>+1-212-555-0303</phoneNumber>
+    <department>HR</department>
+    <emergencyContact>Emily Johnson</emergencyContact>
+    <employeeType>Part-Time</employeeType>
+    <officeLocation>Floor 4</officeLocation>
+    <baseSalary>45000</baseSalary>
+    <skillSet>Recruitment,Employee Relations,Payroll</skillSet>
+    <overtimeRate>25.00</overtimeRate>
+    <projectCode>PRJ003</projectCode>
+    <healthInsurance>Basic Plan</healthInsurance>
+    <vacationDays>10</vacationDays>
+    <dependents>1</dependents>
+    <taxFilingStatus>Head of Household</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E004</employeeID>
+    <parkingSpot>A104</parkingSpot>
+    <name>Emily Davis</name>
+    <laptopSerialNumber>LP852963</laptopSerialNumber>
+    <socialSecurityNumber>345-67-8901</socialSecurityNumber>
+    <email>emily.davis@company.com</email>
+    <bankAccount>GB56RBOS60997377501957</bankAccount>
+    <position>Marketing Coordinator</position>
+    <maritalStatus>Single</maritalStatus>
+    <phoneNumber>+1-212-555-0404</phoneNumber>
+    <department>Marketing</department>
+    <emergencyContact>Sarah Davis</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 5</officeLocation>
+    <baseSalary>62000</baseSalary>
+    <skillSet>SEO,Content Creation,Social Media</skillSet>
+    <overtimeRate>28.75</overtimeRate>
+    <projectCode>PRJ004</projectCode>
+    <healthInsurance>Standard Plan</healthInsurance>
+    <vacationDays>18</vacationDays>
+    <dependents>0</dependents>
+    <taxFilingStatus>Single</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E005</employeeID>
+    <parkingSpot>A105</parkingSpot>
+    <name>Michael Brown</name>
+    <laptopSerialNumber>LP963147</laptopSerialNumber>
+    <socialSecurityNumber>456-78-9012</socialSecurityNumber>
+    <email>michael.brown@company.com</email>
+    <bankAccount>GB04BARC20222867452236</bankAccount>
+    <position>Financial Analyst</position>
+    <maritalStatus>Married</maritalStatus>
+    <phoneNumber>+1-212-555-0505</phoneNumber>
+    <department>Finance</department>
+    <emergencyContact>Linda Brown</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 6</officeLocation>
+    <baseSalary>78000</baseSalary>
+    <skillSet>Excel,Forecasting,Financial Modelling</skillSet>
+    <overtimeRate>32.00</overtimeRate>
+    <projectCode>PRJ005</projectCode>
+    <healthInsurance>Premium Plan</healthInsurance>
+    <vacationDays>22</vacationDays>
+    <dependents>1</dependents>
+    <taxFilingStatus>Married Filing Jointly</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E006</employeeID>
+    <parkingSpot>A106</parkingSpot>
+    <name>Jessica Miller</name>
+    <laptopSerialNumber>LP357951</laptopSerialNumber>
+    <socialSecurityNumber>567-89-0123</socialSecurityNumber>
+    <email>jessica.miller@company.com</email>
+    <bankAccount>GB81LOYD30921108461119</bankAccount>
+    <position>Product Manager</position>
+    <maritalStatus>Single</maritalStatus>
+    <phoneNumber>+1-212-555-0606</phoneNumber>
+    <department>Product</department>
+    <emergencyContact>James Miller</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 7</officeLocation>
+    <baseSalary>92000</baseSalary>
+    <skillSet>Product Development,UI/UX,Agile</skillSet>
+    <overtimeRate>45.00</overtimeRate>
+    <projectCode>PRJ006</projectCode>
+    <healthInsurance>Premium Plan</healthInsurance>
+    <vacationDays>18</vacationDays>
+    <dependents>0</dependents>
+    <taxFilingStatus>Single</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E007</employeeID>
+    <parkingSpot>A107</parkingSpot>
+    <name>David White</name>
+    <laptopSerialNumber>LP147852</laptopSerialNumber>
+    <socialSecurityNumber>678-90-1234</socialSecurityNumber>
+    <email>david.white@company.com</email>
+    <bankAccount>GB98MIDL07009312345678</bankAccount>
+    <position>Sales Executive</position>
+    <maritalStatus>Married</maritalStatus>
+    <phoneNumber>+1-212-555-0707</phoneNumber>
+    <department>Sales</department>
+    <emergencyContact>Susan White</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 2</officeLocation>
+    <baseSalary>64000</baseSalary>
+    <skillSet>Negotiation,CRM,Customer Service</skillSet>
+    <overtimeRate>27.50</overtimeRate>
+    <projectCode>PRJ007</projectCode>
+    <healthInsurance>Standard Plan</healthInsurance>
+    <vacationDays>14</vacationDays>
+    <dependents>2</dependents>
+    <taxFilingStatus>Married Filing Jointly</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E008</employeeID>
+    <parkingSpot>A108</parkingSpot>
+    <name>Alice Green</name>
+    <laptopSerialNumber>LP963258</laptopSerialNumber>
+    <socialSecurityNumber>789-01-2345</socialSecurityNumber>
+    <email>alice.green@company.com</email>
+    <bankAccount>GB69BARC20201530093459</bankAccount>
+    <position>Data Scientist</position>
+    <maritalStatus>Single</maritalStatus>
+    <phoneNumber>+1-212-555-0808</phoneNumber>
+    <department>Data Science</department>
+    <emergencyContact>Lucas Green</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 8</officeLocation>
+    <baseSalary>110000</baseSalary>
+    <skillSet>Python,R,Machine Learning</skillSet>
+    <overtimeRate>50.00</overtimeRate>
+    <projectCode>PRJ008</projectCode>
+    <healthInsurance>Premium Plan</healthInsurance>
+    <vacationDays>25</vacationDays>
+    <dependents>0</dependents>
+    <taxFilingStatus>Single</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E009</employeeID>
+    <parkingSpot>A109</parkingSpot>
+    <name>Charles Martinez</name>
+    <laptopSerialNumber>LP852147</laptopSerialNumber>
+    <socialSecurityNumber>890-12-3456</socialSecurityNumber>
+    <email>charles.martinez@company.com</email>
+    <bankAccount>GB11RBOS60161331926819</bankAccount>
+    <position>Legal Advisor</position>
+    <maritalStatus>Married</maritalStatus>
+    <phoneNumber>+1-212-555-0909</phoneNumber>
+    <department>Legal</department>
+    <emergencyContact>Patricia Martinez</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 3</officeLocation>
+    <baseSalary>95000</baseSalary>
+    <skillSet>Corporate Law,Contracts,Compliance</skillSet>
+    <overtimeRate>42.00</overtimeRate>
+    <projectCode>PRJ009</projectCode>
+    <healthInsurance>Standard Plan</healthInsurance>
+    <vacationDays>21</vacationDays>
+    <dependents>1</dependents>
+    <taxFilingStatus>Married Filing Jointly</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E010</employeeID>
+    <parkingSpot>A110</parkingSpot>
+    <name>Olivia Clark</name>
+    <laptopSerialNumber>LP258369</laptopSerialNumber>
+    <socialSecurityNumber>901-23-4567</socialSecurityNumber>
+    <email>olivia.clark@company.com</email>
+    <bankAccount>GB59RBOS60161331926819</bankAccount>
+    <position>Graphic Designer</position>
+    <maritalStatus>Single</maritalStatus>
+    <phoneNumber>+1-212-555-1010</phoneNumber>
+    <department>Design</department>
+    <emergencyContact>Emma Clark</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 9</officeLocation>
+    <baseSalary>60000</baseSalary>
+    <skillSet>Photoshop,Illustrator,InDesign</skillSet>
+    <overtimeRate>30.50</overtimeRate>
+    <projectCode>PRJ010</projectCode>
+    <healthInsurance>Standard Plan</healthInsurance>
+    <vacationDays>19</vacationDays>
+    <dependents>0</dependents>
+    <taxFilingStatus>Single</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E011</employeeID>
+    <parkingSpot>A111</parkingSpot>
+    <name>Thomas Anderson</name>
+    <laptopSerialNumber>LP987654</laptopSerialNumber>
+    <socialSecurityNumber>012-34-5678</socialSecurityNumber>
+    <email>thomas.anderson@company.com</email>
+    <bankAccount>GB47MIDL07009312345678</bankAccount>
+    <position>Network Engineer</position>
+    <maritalStatus>Married</maritalStatus>
+    <phoneNumber>+1-212-555-1111</phoneNumber>
+    <department>IT</department>
+    <emergencyContact>Laura Anderson</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 10</officeLocation>
+    <baseSalary>82000</baseSalary>
+    <skillSet>Networking,Cisco,Security</skillSet>
+    <overtimeRate>38.00</overtimeRate>
+    <projectCode>PRJ011</projectCode>
+    <healthInsurance>Premium Plan</healthInsurance>
+    <vacationDays>23</vacationDays>
+    <dependents>3</dependents>
+    <taxFilingStatus>Married Filing Jointly</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E012</employeeID>
+    <parkingSpot>A112</parkingSpot>
+    <name>Isabella Moore</name>
+    <laptopSerialNumber>LP753951</laptopSerialNumber>
+    <socialSecurityNumber>123-45-6780</socialSecurityNumber>
+    <email>isabella.moore@company.com</email>
+    <bankAccount>GB69LOYD30921108461119</bankAccount>
+    <position>Content Writer</position>
+    <maritalStatus>Single</maritalStatus>
+    <phoneNumber>+1-212-555-1212</phoneNumber>
+    <department>Content</department>
+    <emergencyContact>George Moore</emergencyContact>
+    <employeeType>Part-Time</employeeType>
+    <officeLocation>Floor 5</officeLocation>
+    <baseSalary>40000</baseSalary>
+    <skillSet>Writing,Editing,SEO</skillSet>
+    <overtimeRate>22.00</overtimeRate>
+    <projectCode>PRJ012</projectCode>
+    <healthInsurance>Basic Plan</healthInsurance>
+    <vacationDays>12</vacationDays>
+    <dependents>0</dependents>
+    <taxFilingStatus>Single</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E013</employeeID>
+    <parkingSpot>A113</parkingSpot>
+    <name>William Walker</name>
+    <laptopSerialNumber>LP951753</laptopSerialNumber>
+    <socialSecurityNumber>234-56-7891</socialSecurityNumber>
+    <email>william.walker@company.com</email>
+    <bankAccount>GB29RBOS60161331926819</bankAccount>
+    <position>System Administrator</position>
+    <maritalStatus>Married</maritalStatus>
+    <phoneNumber>+1-212-555-1313</phoneNumber>
+    <department>IT</department>
+    <emergencyContact>Alice Walker</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 11</officeLocation>
+    <baseSalary>77000</baseSalary>
+    <skillSet>Linux,Windows Server,Virtualization</skillSet>
+    <overtimeRate>34.50</overtimeRate>
+    <projectCode>PRJ013</projectCode>
+    <healthInsurance>Premium Plan</healthInsurance>
+    <vacationDays>20</vacationDays>
+    <dependents>2</dependents>
+    <taxFilingStatus>Married Filing Jointly</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E014</employeeID>
+    <parkingSpot>A114</parkingSpot>
+    <name>Daniel Harris</name>
+    <laptopSerialNumber>LP147963</laptopSerialNumber>
+    <socialSecurityNumber>345-67-8902</socialSecurityNumber>
+    <email>daniel.harris@company.com</email>
+    <bankAccount>GB49MIDL07009312345678</bankAccount>
+    <position>Operations Manager</position>
+    <maritalStatus>Single</maritalStatus>
+    <phoneNumber>+1-212-555-1414</phoneNumber>
+    <department>Operations</department>
+    <emergencyContact>Karen Harris</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 12</officeLocation>
+    <baseSalary>94000</baseSalary>
+    <skillSet>Operations Management,Supply Chain,Logistics</skillSet>
+    <overtimeRate>39.00</overtimeRate>
+    <projectCode>PRJ014</projectCode>
+    <healthInsurance>Premium Plan</healthInsurance>
+    <vacationDays>16</vacationDays>
+    <dependents>0</dependents>
+    <taxFilingStatus>Single</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E015</employeeID>
+    <parkingSpot>A115</parkingSpot>
+    <name>Mia Thompson</name>
+    <laptopSerialNumber>LP258741</laptopSerialNumber>
+    <socialSecurityNumber>456-78-9013</socialSecurityNumber>
+    <email>mia.thompson@company.com</email>
+    <bankAccount>GB10LOYD30921108461119</bankAccount>
+    <position>Customer Support</position>
+    <maritalStatus>Married</maritalStatus>
+    <phoneNumber>+1-212-555-1515</phoneNumber>
+    <department>Customer Service</department>
+    <emergencyContact>Oliver Thompson</emergencyContact>
+    <employeeType>Part-Time</employeeType>
+    <officeLocation>Floor 1</officeLocation>
+    <baseSalary>38000</baseSalary>
+    <skillSet>Customer Service,CRM,Communication</skillSet>
+    <overtimeRate>20.00</overtimeRate>
+    <projectCode>PRJ015</projectCode>
+    <healthInsurance>Basic Plan</healthInsurance>
+    <vacationDays>10</vacationDays>
+    <dependents>1</dependents>
+    <taxFilingStatus>Married Filing Jointly</taxFilingStatus>
+  </Employee>
+  <Employee>
+    <employeeID>E016</employeeID>
+    <parkingSpot>A116</parkingSpot>
+    <name>James Wilson</name>
+    <laptopSerialNumber>LP951258</laptopSerialNumber>
+    <socialSecurityNumber>567-89-0124</socialSecurityNumber>
+    <email>james.wilson@company.com</email>
+    <bankAccount>GB18BARC20201530093459</bankAccount>
+    <position>Software Tester</position>
+    <maritalStatus>Single</maritalStatus>
+    <phoneNumber>+1-212-555-1616</phoneNumber>
+    <department>Quality Assurance</department>
+    <emergencyContact>Angela Wilson</emergencyContact>
+    <employeeType>Full-Time</employeeType>
+    <officeLocation>Floor 13</officeLocation>
+    <baseSalary>68000</baseSalary>
+    <skillSet>Testing,Automation,Scripting</skillSet>
+    <overtimeRate>31.00</overtimeRate>
+    <projectCode>PRJ016</projectCode>
+    <healthInsurance>Standard Plan</healthInsurance>
+    <vacationDays>17</vacationDays>
+    <dependents>0</dependents>
+    <taxFilingStatus>Single</taxFilingStatus>
+  </Employee>
+</Employees>
