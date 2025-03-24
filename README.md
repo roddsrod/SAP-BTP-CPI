@@ -41,7 +41,7 @@ This script performs the following operations:
    (Or enter it during the running of the script)
 3. Run the script:
    ```powershell
-   ./deploy-integration-suite.ps1
+   ./BTP-CLI.ps1
    ```
 
 ## 🔧 Functions
@@ -113,5 +113,5 @@ Created by Rodolfo Rodrigues.
 *Made with ❤️ for SAP developers*
 
 🖼️ Screenshots
-![Script Execution_1](https://i.imgur.com/2WowRFj.png
-![Script Execution_2](https://i.imgur.com/2WowRFj.png
+![Script Execution_1](https://i.imgur.com/2WowRFj.png)
+![Script Execution_2](https://i.imgur.com/2WowRFj.png)
