@@ -2,7 +2,7 @@
 
 A powerful PowerShell script that automates 95% of the steps required to create a working SAP Integration Suite environment on SAP Business Technology Platform (BTP).
 
-![SAP Integration Suite](https://i.imgur.com/eAsZ0dv.png
+![SAP Integration Suite](https://i.imgur.com/eAsZ0dv.png)
 
 - **One-Click Setup**: Automates the entire process from BTP login to service creation
 - **Cross-Platform**: Works on Windows, MacOS (x64/ARM64), and Linux
