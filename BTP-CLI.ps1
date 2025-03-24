@@ -1191,7 +1191,7 @@ Write-Host ""
 Write-Host "  $($YELLOW)1. Access your Integration Suite at: $($BOLD_WHITE)$integration_suite_url$($RESET)"
 Write-Host "  $($YELLOW)2. Open the '$($BOLD_WHITE)Capabilities$($RESET)$($YELLOW)' window ($($RESET)$($WHITE)Add Capabilities$($RESET)$($YELLOW)).$($RESET)"
 Write-Host "  $($YELLOW)3. Activate the '$($BOLD_WHITE)Cloud Integration$($RESET)$($YELLOW)' ($($WHITE)Build Integration Scenarios$($RESET)$($YELLOW)) capability ($($BOLD_RED)required$($RESET)$($YELLOW)).$($RESET)"
-Write-Host "  $($YELLOW)4. Optionally activate other capabilities as needed (Can be done later after script completion, altought the script expects the API one).$($RESET)"
+Write-Host "  $($YELLOW)4. Optionally activate other capabilities as needed (Can be done later after script completion.$($RESET)"
 Write-Host "  $($YELLOW)5. Wait for activation to complete (status will change to '$($GREEN)Active$($RESET)$($YELLOW)').$($RESET)"
 Write-Host "  $($YELLOW)6. Return to this script and press$($RESET) '$($BOLD_WHITE)y$($RESET)' $($YELLOW)to continue.$($RESET)"
 
