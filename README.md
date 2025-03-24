@@ -2,7 +2,7 @@
 
 A powerful PowerShell script that automates 95% of the steps required to create a working SAP Integration Suite environment on SAP Business Technology Platform (BTP).
 
-![SAP Integration Suite](https://i.imgur.com/eAsZ0dv.png)
+![SAP Integration Suite](https://i.imgur.com/lMufYRa.png)
 
 - **One-Click Setup**: Automates the entire process from BTP login to service creation
 - **Cross-Platform**: Works on Windows, MacOS (x64/ARM64), and Linux
@@ -39,9 +39,13 @@ This script performs the following operations:
    your_password
    ```
    (Or enter it during the running of the script)
-3. Run the script:
+3. Run the script from the folder where it resides:
    ```powershell
    ./BTP-CLI.ps1
+   ```
+   Or:
+   ```powershell
+   pwsh BTP-CLI.ps1
    ```
 
 ## 🔧 Functions
@@ -113,5 +117,7 @@ Created by Rodolfo Rodrigues.
 *Made with ❤️ for SAP developers*
 
 🖼️ Screenshots
-![Script Execution_1](https://i.imgur.com/2WowRFj.png)
-![Script Execution_2](https://i.imgur.com/2WowRFj.png)
+
+![Script Execution_1](https://i.imgur.com/liucWX6.png)
+![Script Execution_2](https://i.imgur.com/8mug9bt.png)
+![Script Execution_3](https://i.imgur.com/IG5ulQG.png)
