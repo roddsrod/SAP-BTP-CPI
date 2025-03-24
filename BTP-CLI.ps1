@@ -25,11 +25,7 @@ $BOLD_WHITE = "$ESC[1;37m"
 
 # Function to read credentials from file
 function Read-CredentialsFromFile {
-    [CmdletBinding()]
-    param (
-        [Parameter(Mandatory=$false)]
-        [string]$CredentialsFile = "credentials.txt"
-    )
+    $CredentialsFile = "credentials.txt"
 
     Write-Host "  $($CYAN)ℹ Reading credentials file...$($RESET)"
     
@@ -50,10 +46,53 @@ function Read-CredentialsFromFile {
     } else {
         Write-Host ""
         Write-Host "  $($BOLD_RED)✗ Error: $CredentialsFile file not found!$($RESET)"
-        Write-Host "  $($RED)Create the file in the same folder as this script.$($RESET)"
-        Write-Host "  $($RED)Put your username (email) in the first line.$($RESET)"
-        Write-Host "  $($RED)Put your password in the second line.$($RESET)"
-        exit 1
+        Write-Host ""
+        $manual_cred = Read-Host "  $($BOLD_YELLOW)Do you want to enter credentials manually? ($($RESET)$($BOLD_WHITE)y$($RESET)$($BOLD_YELLOW)/$($RESET)$($BOLD_WHITE)n$($RESET)$($BOLD_YELLOW))$($RESET)"
+        
+        if ($manual_cred -eq "y" -or $manual_cred -eq "Y") {
+                    # Ask for manual credentials input
+        Write-Host ""
+        Write-Host "  $($CYAN)ℹ Enter credentials manually:$($RESET)"
+        Write-Host ""
+        $userid = Read-Host "$($BOLD_WHITE)  Username $($RESET)$($WHITE)(email)$($RESET)"
+        Write-Host ""
+        $passw = Read-Host "$($BOLD_WHITE)  Password$($RESET)" -MaskInput
+        
+        # Ask if user wants to save credentials
+        Write-Host ""
+        $saveCredentials = Read-Host "  $($BOLD_YELLOW)Do you want to save these credentials ($($RESET)$($YELLOW)cleartext$($RESET)$($BOLD_YELLOW)) to $($BOLD_WHITE)$($CredentialsFile)$($RESET)$($BOLD_YELLOW)? ($($RESET)$($BOLD_WHITE)y$($RESET)$($BOLD_YELLOW)/$($RESET)$($BOLD_WHITE)n$($RESET)$($BOLD_YELLOW))$($RESET)"
+        
+        if ($saveCredentials -eq 'y' -or $saveCredentials -eq 'Y') {
+            try {
+                # Save credentials to file
+                $userid | Out-File -FilePath $CredentialsFile -Force
+                $passw | Out-File -FilePath $CredentialsFile -Append -Force
+                
+                Write-Host ""
+                Write-Host "  $($BOLD_GREEN)✓ Credentials saved to $CredentialsFile successfully!$($RESET)"
+            }
+            catch {
+                Write-Host ""
+                Write-Host "  $($BOLD_RED)✗ Error saving credentials to file: $_$($RESET)"
+            }
+        }
+        
+        Write-Host ""
+        Write-Host "  $($CYAN)Using manually entered credentials.$($RESET)"
+        
+        return @{
+            UserId = $userid
+            Password = $passw
+        }
+        } else {
+            Write-Host ""
+            Write-Host "  $($RED)Create the $($BOLD_RED)$CredentialsFile$($RESET) $($RED)file in the same folder as this script and run it again.$($RESET)"
+            Write-Host "  $($RED)Put your username (email) in the first line.$($RESET)"
+            Write-Host "  $($RED)Put your password in the second line.$($RESET)"
+            Write-Host ""
+            exit 1
+        }
+
     }
 }
 
@@ -1134,7 +1173,8 @@ $result = Start-ProcessingAnimation -Activity "  Creating IF service key" -Scrip
 }
   
 if ($result.ExitCode -eq 0) {
-  Write-Host "  $($BOLD_GREEN)✓ IF Service key created!$($RESET)"
+    Write-Host ""
+    Write-Host "  $($BOLD_GREEN)✓ IF Service key created!$($RESET)"
 } else {
     Write-Host "  $($BOLD_RED)✗ Failed to create IF service key.$($RESET)"
   }
