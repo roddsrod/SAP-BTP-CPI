@@ -133,7 +133,7 @@ function Get-Confirmation {
         [string]$Message
     )
     
-    Write-Host "$($BOLD_YELLOW)$Message$($RESET) $($BOLD)(y/n)$($RESET): " -NoNewline
+    Write-Host "$($BOLD_YELLOW)$Message$($RESET) ($($RESET)$($BOLD_WHITE)y$($RESET)$($YELLOW)/$($RESET)$($BOLD_WHITE)n$($RESET)$($YELLOW))$($RESET): " -NoNewline
     $key = [Console]::ReadKey($true).Key
     Write-Host ""
     
@@ -358,9 +358,100 @@ function Install-BTP {
     }
 }
 
+function Invoke-BTPTargetSelection {
+        Start-ProcessingAnimation -Activity "  Fetching global accounts" -ScriptBlock {
+            # Start the process
+            $process = Start-Process -FilePath "./btp" -ArgumentList "target -h" -NoNewWindow -PassThru -RedirectStandardOutput "output.txt"
+
+            # Wait for the file to have content
+            $timeout = [System.Diagnostics.Stopwatch]::StartNew()
+            $maxWaitTime = 10000 # 10 seconds
+
+            # Wait until file exists and has content
+            while ($timeout.ElapsedMilliseconds -lt $maxWaitTime) {
+                if ((Get-Item "output.txt").Length -gt 0) {
+                    # File exists and has content
+                    break
+                }
+                Start-Sleep -Milliseconds 100
+            }
+
+            # Initialize variables for monitoring the file
+            $previousContent = ""
+            $noChangeCount = 0
+            $maxNoChange = 3
+
+            # Wait for the process to complete or for the "Choose, or hit ENTER" prompt
+            while (!$process.HasExited) {
+                # Small delay to prevent CPU spinning
+                Start-Sleep -Milliseconds 100
+                
+                # Read current content
+                $currentContent = Get-Content "output.txt" -Raw -ErrorAction SilentlyContinue
+                
+                # Check if there is new content
+                if ($currentContent -eq $previousContent) {
+                    $noChangeCount++
+                } else {
+                    $noChangeCount = 0
+                    $previousContent = $currentContent
+                }
+                
+                # If no new content is detected after 3 reads, kill the process
+                if ($noChangeCount -ge $maxNoChange) {
+                    $process.Kill()
+                    break
+                }
+        }
+    }
+
+    # Extract global accounts from the output
+    $globalAccounts = Get-Content "output.txt" | 
+        Select-String -Pattern "\s*(\w+)\s+\(global account\)" | 
+        ForEach-Object { $_.Matches.Groups[1].Value }
+
+    # Remove duplicates from global accounts list
+    $globalAccounts = $globalAccounts | Select-Object -Unique
+
+    Remove-Item "output.txt"
+    
+    # Display available global accounts
+    Write-Host ""
+    Write-Host "  $($BOLD_BLUE)Available global accounts:$($RESET)"
+    Write-Host ""
+    for ($i = 0; $i -lt $globalAccounts.Count; $i++) {
+        Write-Host "  $($BOLD_CYAN)$($i+1)) $($globalAccounts[$i])$($RESET)"
+    }
+    
+    # Get user selection
+    Write-Host ""
+    $selection = Read-Host "  $($MAGENTA)Select a global account $($RESET)($($BOLD_MAGENTA)1$($RESET)-$($BOLD_MAGENTA)$($globalAccounts.Count)$($RESET))"
+    
+    # Validate selection
+    if (-not ($selection -match "^\d+$") -or [int]$selection -lt 1 -or [int]$selection -gt $globalAccounts.Count) {
+        Write-Host "  $($BOLD_RED)✗ Invalid selection. Exiting.$($RESET)"
+        exit 1
+    }
+    
+    # Get the selected global account
+    $selectedGlobalAccount = $globalAccounts[[int]$selection-1]
+    
+    # Append "-ga" to the selected global account
+    $selectedGlobalAccountWithSuffix = "$selectedGlobalAccount-ga"
+
+    Write-Host ""
+    Write-Host "  $($CYAN)Targeting the specified global account"
+    
+    # Target the selected global account
+    Start-ProcessingAnimation -Activity "  Targeting global account" -ScriptBlock {
+        & ./btp target --global-account "$using:selectedGlobalAccountWithSuffix" *>`&null
+    }
+}
 
 
-# Main script starts here
+        ### Main script starts here ###
+
+
 Write-Host ""
 Write-Host "  $($BOLD_CYAN)=======================================$($RESET)"
 Write-Host "  $($BOLD_CYAN)SAP Integration Suite Deployment Script$($RESET)"
@@ -430,26 +521,55 @@ $credential = Read-CredentialsFromFile
 $userid = $credential.UserId
 $passw = $credential.Password
 
-$login_output = & ./btp login --url https://cli.btp.cloud.sap --user $userid --password $passw 2>$null
+$result = Start-ProcessingAnimation -Activity "  Logging in to BTP" -ScriptBlock {
+    "1" | & ./btp login --url https://cli.btp.cloud.sap --user "$using:userid" --password "$using:passw" 2>$null
 
-# Extract the global account subdomain from login output
-$global_subdomain = $login_output | Select-String -Pattern "Current target:" -Context 0,1 | 
-                    ForEach-Object { $_.Context.PostContext[0] } | 
-                    Select-String -Pattern "[0-9a-zA-Z]+trial" | 
-                    ForEach-Object { $_.Matches[0].Value }
+    return @{
+        ExitCode = $LASTEXITCODE
+    }
+}
+
+$login_success = ($result.ExitCode -ne 0)
 
 Write-Host ""
 # Check if login was successful
-if ($LASTEXITCODE -ne 0) {
+if ($login_success -ne 0) {
     Write-Host "  $($BOLD_RED)✗ Login failed. Exiting.$($RESET)"
     exit 1
 } else {
     Write-Host "  $($BOLD_GREEN)✓ Login successful!$($RESET)"
 }
 
-# Verify the extraction
-### Write-Host ""
-### Write-Host "  $($CYAN)Extracted global account subdomain: $($BOLD_WHITE)$global_subdomain$($RESET)"
+# Extract the global account subdomain from login output
+$global_subdomain = & ./btp get accounts/global-account 2>$null | Select-String -Pattern "display name:" | 
+        ForEach-Object { $_.Line -replace "display name:\s*", "" }
+
+# Verify the Global Account
+Write-Host ""
+Write-Host "  $($CYAN)Active global account name: $($BOLD_WHITE)$global_subdomain$($RESET)"
+Write-Host ""
+
+# Ask for confirmation
+$confirmGlobalAccount = Read-Host "  $($YELLOW)Is it the correct global account name? ($($RESET)$($WHITE)[$($BOLD_WHITE)y$($RESET)$($WHITE)]$($RESET)$($YELLOW)/$($RESET)$($BOLD_WHITE)n$($RESET)$($YELLOW))$($RESET)"
+$defaultSelection = "y"
+
+# If user just pressed Enter without typing anything, use the default value
+if ([string]::IsNullOrWhiteSpace($confirmGlobalAccount)) {
+    $confirmGlobalAccount = $defaultSelection
+}
+if ($confirmGlobalAccount.ToUpper() -eq "N") {    
+    # Call the function to handle btp target interaction
+    Invoke-BTPTargetSelection
+    
+    # Get the global account info after targeting
+    $global_subdomain = & ./btp get accounts/global-account 2>$null | Select-String -Pattern "display name:" | 
+        ForEach-Object { $_.Line -replace "display name:\s*", "" }
+    
+    Write-Host ""
+    Write-Host "  $($GREEN)Successfully targeted global account: $($BOLD_WHITE)$global_subdomain$($RESET)"
+} 
+else {
+    }
 
 Write-Host ""
 # Get available regions
@@ -490,12 +610,12 @@ $timestamp = [int](Get-Date -UFormat %s)
 $unique_subdomain = "trial-$($global_account_id.Substring(0,7))-$timestamp"
 
 Write-Host ""
-$defaultName = "Trial"
-$subaccountDisplayName = Read-Host -Prompt "  $($MAGENTA)Enter subaccount display name $($RESET)[$($BOLD_MAGENTA)$defaultName$($RESET)]"
+$defaultSubName = "Trial"
+$subaccountDisplayName = Read-Host -Prompt "  $($MAGENTA)Enter subaccount display name $($RESET)[$($BOLD_MAGENTA)$defaultSubName$($RESET)]"
 
 # If user just pressed Enter without typing anything, use the default value
 if ([string]::IsNullOrWhiteSpace($subaccountDisplayName)) {
-    $subaccountDisplayName = $defaultName
+    $subaccountDisplayName = $defaultSubName
 }
 
 
@@ -530,9 +650,6 @@ if (-not $createSubaccountSuccess) {
 $subaccount_id = $subaccount_output | 
                 Select-String -Pattern "subaccount id:" | 
                 ForEach-Object { $_.Line -replace "subaccount id:\s*", "" }
-
-### Write-Host ""
-### Write-Host "  $($BOLD_GREEN)Subaccount created successfully with ID:$($RESET) $($BOLD_WHITE)$subaccount_id$($RESET)"
 
 # Initialize variables
 $attempt = 1
@@ -1074,7 +1191,7 @@ Write-Host ""
 Write-Host "  $($YELLOW)1. Access your Integration Suite at: $($BOLD_WHITE)$integration_suite_url$($RESET)"
 Write-Host "  $($YELLOW)2. Open the '$($BOLD_WHITE)Capabilities$($RESET)$($YELLOW)' window ($($RESET)$($WHITE)Add Capabilities$($RESET)$($YELLOW)).$($RESET)"
 Write-Host "  $($YELLOW)3. Activate the '$($BOLD_WHITE)Cloud Integration$($RESET)$($YELLOW)' ($($WHITE)Build Integration Scenarios$($RESET)$($YELLOW)) capability ($($BOLD_RED)required$($RESET)$($YELLOW)).$($RESET)"
-Write-Host "  $($YELLOW)4. Optionally activate other capabilities as needed (Can be done later after script completion).$($RESET)"
+Write-Host "  $($YELLOW)4. Optionally activate other capabilities as needed (Can be done later after script completion, altought the script expects the API one).$($RESET)"
 Write-Host "  $($YELLOW)5. Wait for activation to complete (status will change to '$($GREEN)Active$($RESET)$($YELLOW)').$($RESET)"
 Write-Host "  $($YELLOW)6. Return to this script and press$($RESET) '$($BOLD_WHITE)y$($RESET)' $($YELLOW)to continue.$($RESET)"
 
@@ -1084,7 +1201,6 @@ if (-not $confirmation) {
     Write-Host "  $($BOLD_RED)✗ Cloud Integration capability activation is required to proceed. Exiting.$($RESET)"
     exit 1
 }
-
 
 #
 # CREATE PROCESS INTEGRATION RUNTIME SERVICE INSTANCES 
@@ -1111,7 +1227,7 @@ if ($result.ExitCode -eq 0) {
 Write-Host ""
 Write-Host "  $($CYAN)Creating Process Integration Runtime API instance...$($RESET)"
 $result = Start-ProcessingAnimation -Activity "  Creating Process Integration Runtime API instance" -ScriptBlock {
-    & ./cf create-service it-rt api pi-runtime-api 2>$null
+    & ./cf create-service it-rt api pi-runtime-api -c '{"roles": ["AuthGroup_Administrator", "AuthGroup_IntegrationDeveloper", "AuthGroup_BusinessExpert", "AuthGroup_ContentPublisher", "AuthGroup_TenantPartnerDirectoryConfigurator"], "grant-types": ["client_credentials"], "redirect-uris": [], "token-validity": 43200}'  2>$null
     
     return @{
         ExitCode = $LASTEXITCODE
