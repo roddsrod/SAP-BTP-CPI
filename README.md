@@ -118,6 +118,6 @@ Created by Rodolfo Rodrigues.
 
 🖼️ Screenshots
 
-![Script Execution_1](https://i.imgur.com/LkMUBZi.png)
-![Script Execution_2](https://i.imgur.com/85dVTIY.png)
-![Script Execution_3](https://i.imgur.com/klFk6VX.png)
+![Script Execution_1](https://i.imgur.com/bBDxrKX.png)
+![Script Execution_2](https://i.imgur.com/6DZMCh8.png)
+![Script Execution_3](https://i.imgur.com/LetWv8h.png)
