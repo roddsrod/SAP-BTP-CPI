@@ -47,7 +47,7 @@ function Read-CredentialsFromFile {
         Write-Host ""
         Write-Host "  $($BOLD_RED)✗ Error: $CredentialsFile file not found!$($RESET)"
         Write-Host ""
-        $manual_cred = Read-Host "  $($BOLD_YELLOW)Do you want to enter credentials manually? ($($RESET)$($BOLD_WHITE)y$($RESET)$($BOLD_YELLOW)/$($RESET)$($BOLD_WHITE)n$($RESET)$($BOLD_YELLOW))$($RESET)"
+        $manual_cred = Read-Host "  $($BOLD_YELLOW)Do you want to enter credentials manually? $($RESET)$($YELLOW)($($RESET)$($BOLD_WHITE)y$($RESET)$($YELLOW)/$($RESET)$($BOLD_WHITE)n$($RESET)$($YELLOW))$($RESET)"
         
         if ($manual_cred -eq "y" -or $manual_cred -eq "Y") {
                     # Ask for manual credentials input
@@ -60,7 +60,7 @@ function Read-CredentialsFromFile {
         
         # Ask if user wants to save credentials
         Write-Host ""
-        $saveCredentials = Read-Host "  $($BOLD_YELLOW)Do you want to save these credentials ($($RESET)$($YELLOW)cleartext$($RESET)$($BOLD_YELLOW)) to $($BOLD_WHITE)$($CredentialsFile)$($RESET)$($BOLD_YELLOW)? ($($RESET)$($BOLD_WHITE)y$($RESET)$($BOLD_YELLOW)/$($RESET)$($BOLD_WHITE)n$($RESET)$($BOLD_YELLOW))$($RESET)"
+        $saveCredentials = Read-Host "  $($BOLD_YELLOW)Do you want to save these credentials ($($RESET)$($YELLOW)cleartext$($RESET)$($BOLD_YELLOW)) to $($BOLD_WHITE)$($CredentialsFile)$($RESET)$($BOLD_YELLOW)? $($RESET)$($YELLOW)($($RESET)$($BOLD_WHITE)y$($RESET)$($YELLOW)/$($RESET)$($BOLD_WHITE)n$($RESET)$($YELLOW))$($RESET)"
         
         if ($saveCredentials -eq 'y' -or $saveCredentials -eq 'Y') {
             try {
@@ -425,7 +425,7 @@ function Invoke-BTPTargetSelection {
     
     # Get user selection
     Write-Host ""
-    $selection = Read-Host "  $($MAGENTA)Select a global account ($($RESET)$($BOLD_WHITE)1$($RESET)$($MAGENTA)-$($RESET)$($BOLD_WHITE)$($globalAccounts.Count)$($RESET)$($MAGENTA))$($RESET)"
+    $selection = Read-Host "  $($BOLD_MAGENTA)Select a global account $($RESET)$($MAGENTA)($($RESET)$($BOLD_WHITE)1$($RESET)$($MAGENTA)-$($RESET)$($BOLD_WHITE)$($globalAccounts.Count)$($RESET)$($MAGENTA))$($RESET)"
     
     # Validate selection
     if (-not ($selection -match "^\d+$") -or [int]$selection -lt 1 -or [int]$selection -gt $globalAccounts.Count) {
@@ -444,7 +444,7 @@ function Invoke-BTPTargetSelection {
     
     # Target the selected global account
     Start-ProcessingAnimation -Activity "  Targeting global account" -ScriptBlock {
-        & ./btp target --global-account "$using:selectedGlobalAccountWithSuffix" *>`&null
+        & ./btp target --global-account "$using:selectedGlobalAccountWithSuffix"  > $null 2>&1
     }
 }
 
@@ -471,7 +471,7 @@ foreach ($cmd in $requiredCommands) {
 if ($missingCommands.Count -gt 0) {
     Write-Host "$($BOLD_YELLOW)  ⚠ Warning: The following required commands are missing: $($missingCommands -join ', ')$($RESET)"
     Write-Host ""
-    $installMissing = Read-Host "$($MAGENTA)  Do you want to install the missing commands? ($($RESET)$($WHITE)[$($RESET)$($BOLD_WHITE)y$($RESET)$($WHITE)]$($RESET)$($BOLD_MAGENTA)/$($RESET)$($BOLD_WHITE)n$($RESET)$($BOLD_MAGENTA))$($RESET)"
+    $installMissing = Read-Host "$($BOLD_MAGENTA)  Do you want to install the missing commands? $($RESET)$($MAGENTA)($($RESET)$($WHITE)[$($RESET)$($BOLD_WHITE)y$($RESET)$($WHITE)]$($RESET)$($MAGENTA)/$($RESET)$($BOLD_WHITE)n$($RESET)$($MAGENTA))$($RESET)"
  
     # If user just pressed Enter without typing anything, use the default value
     $defaultSelection = "y"
@@ -600,7 +600,7 @@ for ($i = 0; $i -lt $regions.Count; $i++) {
 
 # Get user selection
 Write-Host ""
-$selection = Read-Host "  $($MAGENTA)Select a region ($($RESET)$($BOLD_WHITE)1$($RESET)$($MAGENTA)-$($RESET)$($BOLD_WHITE)$($regions.Count)$($RESET)$($MAGENTA))$($RESET)"
+$selection = Read-Host "  $($BOLD_MAGENTA)Select a region $($RESET)$($MAGENTA)($($RESET)$($BOLD_WHITE)1$($RESET)$($MAGENTA)-$($RESET)$($BOLD_WHITE)$($regions.Count)$($RESET)$($MAGENTA))$($RESET)"
 
 # Validate selection
 if (-not ($selection -match "^\d+$") -or [int]$selection -lt 1 -or [int]$selection -gt $regions.Count) {
@@ -617,7 +617,7 @@ $unique_subdomain = "trial-$($global_account_id.Substring(0,7))-$timestamp"
 
 Write-Host ""
 $defaultSubName = "Trial"
-$subaccountDisplayName = Read-Host -Prompt "  $($MAGENTA)Enter subaccount display name $($RESET)$($WHITE)[$($RESET)$($BOLD_WHITE)$defaultSubName$($RESET)$($WHITE)]$($RESET)"
+$subaccountDisplayName = Read-Host -Prompt "  $($BOLD_MAGENTA)Enter subaccount display name $($RESET)$($WHITE)[$($RESET)$($BOLD_WHITE)$defaultSubName$($RESET)$($WHITE)]$($RESET)"
 
 # If user just pressed Enter without typing anything, use the default value
 if ([string]::IsNullOrWhiteSpace($subaccountDisplayName)) {
@@ -1188,7 +1188,7 @@ Write-Host "  $($YELLOW)1. Access your Integration Suite at: $($BOLD_WHITE)$inte
 Write-Host "  $($YELLOW)2. Open the '$($BOLD_WHITE)Capabilities$($RESET)$($YELLOW)' window ($($RESET)$($WHITE)Add Capabilities$($RESET)$($YELLOW)).$($RESET)"
 Write-Host "  $($YELLOW)3. Activate the '$($BOLD_WHITE)Cloud Integration$($RESET)$($YELLOW)' ($($WHITE)Build Integration Scenarios$($RESET)$($YELLOW)) capability ($($BOLD_RED)required$($RESET)$($YELLOW)).$($RESET)"
 Write-Host "  $($YELLOW)4. Optionally activate other capabilities as needed (Can be done later after script completion).$($RESET)"
-Write-Host "  $($YELLOW)5. Wait for activation to complete (status will change to '$($GREEN_BG)$($WHITE)Active$($RESET)$($YELLOW)').$($RESET)"
+Write-Host "  $($YELLOW)5. Wait for activation to complete (status will change to '$($GREEN_BG)$($BOLD_WHITE)Active$($RESET)$($YELLOW)').$($RESET)"
 Write-Host "  $($YELLOW)6. Return to this script and press$($RESET) '$($BOLD_WHITE)y$($RESET)' $($YELLOW)to continue.$($RESET)"
 
 Write-Host ""
