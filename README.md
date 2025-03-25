@@ -55,7 +55,6 @@ This script performs the following operations:
 - **Read-CredentialsFromFile**: Reads or prompts for BTP credentials
 - **Invoke-BTPTargetSelection**: Fetches and changes global accounts
 - **Start-ProcessingAnimation**: Displays animated progress indicators
-- **Get-Confirmation**: Handles user confirmations with Y/N prompts
 - **Test-CommandExists**: Checks if required commands are available
 - **Get-OSType**: Detects the operating system for platform-specific operations
 
@@ -116,8 +115,9 @@ Created by Rodolfo Rodrigues.
 
 *Made with ❤️ for SAP developers*
 
+
 🖼️ Screenshots
 
-![Script Execution_1](https://i.imgur.com/liucWX6.png)
-![Script Execution_2](https://i.imgur.com/8mug9bt.png)
-![Script Execution_3](https://i.imgur.com/IG5ulQG.png)
+![Script Execution_1](https://i.imgur.com/bBDxrKX.png)
+![Script Execution_2](https://i.imgur.com/6DZMCh8.png)
+![Script Execution_3](https://i.imgur.com/LetWv8h.png)
