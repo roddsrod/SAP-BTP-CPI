@@ -472,7 +472,7 @@ if ($missingCommands.Count -gt 0) {
     Write-Host "$($BOLD_YELLOW)  ⚠ Warning: The following required commands are missing: $($missingCommands -join ', ')$($RESET)"
     Write-Host ""
     $installMissing = Read-Host "$($MAGENTA)  Do you want to install the missing commands? ($($RESET)$($WHITE)[$($RESET)$($BOLD_WHITE)y$($RESET)$($WHITE)]$($RESET)$($BOLD_MAGENTA)/$($RESET)$($BOLD_WHITE)n$($RESET)$($BOLD_MAGENTA))$($RESET)"
-
+ 
     # If user just pressed Enter without typing anything, use the default value
     $defaultSelection = "y"
     if ([string]::IsNullOrWhiteSpace($installMissing)) {
@@ -1153,8 +1153,8 @@ while ($attempt -le $max_attempts -and -not $subscriptionReady) {
 
 Write-Host ""
 Write-Host "  $($CYAN)Assigning $($BOLD_WHITE)Integration Provisioner$($RESET) $($CYAN)Role...$($RESET)"
-    $result = Start-ProcessingAnimation -Activity "  Assigning Integration Provisioner role" -ScriptBlock {
-        & ./btp assign security/role-collection "Integration_Provisioner" --to-user "$using:userid" --subaccount "$using:subaccount_id" 2>$null
+     $result = Start-ProcessingAnimation -Activity "  Assigning Integration Provisioner role" -ScriptBlock {
+         & ./btp assign security/role-collection "Integration_Provisioner" --to-user "$using:userid" --subaccount "$using:subaccount_id" 2>$null
         
         return @{
             ExitCode = $LASTEXITCODE
@@ -1187,7 +1187,7 @@ Write-Host ""
 Write-Host "  $($YELLOW)1. Access your Integration Suite at: $($BOLD_WHITE)$integration_suite_url$($RESET)"
 Write-Host "  $($YELLOW)2. Open the '$($BOLD_WHITE)Capabilities$($RESET)$($YELLOW)' window ($($RESET)$($WHITE)Add Capabilities$($RESET)$($YELLOW)).$($RESET)"
 Write-Host "  $($YELLOW)3. Activate the '$($BOLD_WHITE)Cloud Integration$($RESET)$($YELLOW)' ($($WHITE)Build Integration Scenarios$($RESET)$($YELLOW)) capability ($($BOLD_RED)required$($RESET)$($YELLOW)).$($RESET)"
-Write-Host "  $($YELLOW)4. Optionally activate other capabilities as needed (Can be done later after script completion.$($RESET)"
+Write-Host "  $($YELLOW)4. Optionally activate other capabilities as needed (Can be done later after script completion).$($RESET)"
 Write-Host "  $($YELLOW)5. Wait for activation to complete (status will change to '$($GREEN_BG)$($WHITE)Active$($RESET)$($YELLOW)').$($RESET)"
 Write-Host "  $($YELLOW)6. Return to this script and press$($RESET) '$($BOLD_WHITE)y$($RESET)' $($YELLOW)to continue.$($RESET)"
 
