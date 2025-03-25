@@ -14,7 +14,7 @@ $BLUE = "$ESC[34m"
 $MAGENTA = "$ESC[35m"
 $CYAN = "$ESC[36m"
 $WHITE = "$ESC[37m"
-$BOLD = "$ESC[1m"
+$GREEN_BG = "$ESC[42m"
 $BOLD_RED = "$ESC[1;31m"
 $BOLD_GREEN = "$ESC[1;32m"
 $BOLD_YELLOW = "$ESC[1;33m"
@@ -133,7 +133,7 @@ function Get-Confirmation {
         [string]$Message
     )
     
-    Write-Host "$($BOLD_YELLOW)$Message$($RESET) ($($RESET)$($BOLD_WHITE)y$($RESET)$($YELLOW)/$($RESET)$($BOLD_WHITE)n$($RESET)$($YELLOW))$($RESET): " -NoNewline
+    Write-Host "$($BOLD_YELLOW)$Message$($RESET) $($YELLOW)($($RESET)$($BOLD_WHITE)y$($RESET)$($YELLOW)/$($RESET)$($BOLD_WHITE)n$($RESET)$($YELLOW))$($RESET): " -NoNewline
     $key = [Console]::ReadKey($true).Key
     Write-Host ""
     
@@ -425,7 +425,7 @@ function Invoke-BTPTargetSelection {
     
     # Get user selection
     Write-Host ""
-    $selection = Read-Host "  $($MAGENTA)Select a global account $($RESET)($($BOLD_MAGENTA)1$($RESET)-$($BOLD_MAGENTA)$($globalAccounts.Count)$($RESET))"
+    $selection = Read-Host "  $($MAGENTA)Select a global account ($($RESET)$($BOLD_WHITE)1$($RESET)$($MAGENTA)-$($RESET)$($BOLD_WHITE)$($globalAccounts.Count)$($RESET)$($MAGENTA))$($RESET)"
     
     # Validate selection
     if (-not ($selection -match "^\d+$") -or [int]$selection -lt 1 -or [int]$selection -gt $globalAccounts.Count) {
@@ -471,9 +471,15 @@ foreach ($cmd in $requiredCommands) {
 if ($missingCommands.Count -gt 0) {
     Write-Host "$($BOLD_YELLOW)  ⚠ Warning: The following required commands are missing: $($missingCommands -join ', ')$($RESET)"
     Write-Host ""
-    $installMissing = Read-Host "$($MAGENTA)  Do you want to install the missing commands?$($RESET) $($WHITE)($($RESET)$($BOLD_MAGENTA)y$($RESET)$($WHITE)/$($RESET)$($BOLD_MAGENTA)n$($RESET)$($WHITE))$($RESET)"
+    $installMissing = Read-Host "$($MAGENTA)  Do you want to install the missing commands? ($($RESET)$($WHITE)[$($RESET)$($BOLD_WHITE)y$($RESET)$($WHITE)]$($RESET)$($BOLD_MAGENTA)/$($RESET)$($BOLD_WHITE)n$($RESET)$($BOLD_MAGENTA))$($RESET)"
+
+    # If user just pressed Enter without typing anything, use the default value
+    $defaultSelection = "y"
+    if ([string]::IsNullOrWhiteSpace($installMissing)) {
+        $installMissing = $defaultSelection
+    }
     
-    if ($installMissing -eq "y" -or $installMissing -eq "Y") {
+    if ($installMissing.ToUpper() -eq "Y") {
         foreach ($cmd in $missingCommands) {
             switch ($cmd) {
                 "btp" { Install-BTP }
@@ -594,7 +600,7 @@ for ($i = 0; $i -lt $regions.Count; $i++) {
 
 # Get user selection
 Write-Host ""
-$selection = Read-Host "  $($MAGENTA)Select a region $($RESET)($($BOLD_MAGENTA)1$($RESET)-$($BOLD_MAGENTA)$($regions.Count)$($RESET))"
+$selection = Read-Host "  $($MAGENTA)Select a region ($($RESET)$($BOLD_WHITE)1$($RESET)$($MAGENTA)-$($RESET)$($BOLD_WHITE)$($regions.Count)$($RESET)$($MAGENTA))$($RESET)"
 
 # Validate selection
 if (-not ($selection -match "^\d+$") -or [int]$selection -lt 1 -or [int]$selection -gt $regions.Count) {
@@ -611,7 +617,7 @@ $unique_subdomain = "trial-$($global_account_id.Substring(0,7))-$timestamp"
 
 Write-Host ""
 $defaultSubName = "Trial"
-$subaccountDisplayName = Read-Host -Prompt "  $($MAGENTA)Enter subaccount display name $($RESET)[$($BOLD_MAGENTA)$defaultSubName$($RESET)]"
+$subaccountDisplayName = Read-Host -Prompt "  $($MAGENTA)Enter subaccount display name $($RESET)$($WHITE)[$($RESET)$($BOLD_WHITE)$defaultSubName$($RESET)$($WHITE)]$($RESET)"
 
 # If user just pressed Enter without typing anything, use the default value
 if ([string]::IsNullOrWhiteSpace($subaccountDisplayName)) {
@@ -1142,22 +1148,13 @@ while ($attempt -le $max_attempts -and -not $subscriptionReady) {
 }
 
 #
-# ASSIGN ROLE COLLECTIONS TO USER 
+# ASSIGN INTEGRATION ROLE COLLECTIONS TO USER 
 #
 
 Write-Host ""
-Write-Host "  $($CYAN)Listing all role collections and assigning them to user...$($RESET)"
-
-# Get all role collections using JSON format
-$role_collections = & ./btp --format json list security/role-collection --subaccount "$subaccount_id" | ConvertFrom-Json
-$role_names = $role_collections | ForEach-Object { $_.name }
-
-# Loop through each role collection and assign to user
-foreach ($role in $role_names) {
-    Write-Host ""
-    Write-Host "  $($CYAN)Assigning role: $($RESET)$($BOLD_WHITE)$role$($RESET)"
-    $result = Start-ProcessingAnimation -Activity "  Assigning role: $role" -ScriptBlock {
-        & ./btp assign security/role-collection "$using:role" --to-user "$using:userid" --subaccount "$using:subaccount_id" 2>$null
+Write-Host "  $($CYAN)Assigning $($BOLD_WHITE)Integration Provisioner$($RESET) $($CYAN)Role...$($RESET)"
+    $result = Start-ProcessingAnimation -Activity "  Assigning Integration Provisioner role" -ScriptBlock {
+        & ./btp assign security/role-collection "Integration_Provisioner" --to-user "$using:userid" --subaccount "$using:subaccount_id" 2>$null
         
         return @{
             ExitCode = $LASTEXITCODE
@@ -1165,11 +1162,10 @@ foreach ($role in $role_names) {
     }
     
     if ($result.ExitCode -eq 0) {
-        Write-Host "  $($BOLD_GREEN)✓ Role$($RESET) $($BOLD_BLUE)$($role)$($RESET) $($BOLD_GREEN)assigned successfully!$($RESET)"
+        Write-Host "  $($BOLD_GREEN)✓ Role$($RESET) $($BOLD_BLUE)Integration Provisioner$($RESET) $($BOLD_GREEN)assigned successfully!$($RESET)"
     } else {
-        Write-Host "  $($YELLOW)⚠ Could not assign role: $role$($RESET)"
+        Write-Host "  $($YELLOW)⚠ Could not assign Integration Provisioner role$($RESET)"
     }
-}
 
 
 #
@@ -1192,7 +1188,7 @@ Write-Host "  $($YELLOW)1. Access your Integration Suite at: $($BOLD_WHITE)$inte
 Write-Host "  $($YELLOW)2. Open the '$($BOLD_WHITE)Capabilities$($RESET)$($YELLOW)' window ($($RESET)$($WHITE)Add Capabilities$($RESET)$($YELLOW)).$($RESET)"
 Write-Host "  $($YELLOW)3. Activate the '$($BOLD_WHITE)Cloud Integration$($RESET)$($YELLOW)' ($($WHITE)Build Integration Scenarios$($RESET)$($YELLOW)) capability ($($BOLD_RED)required$($RESET)$($YELLOW)).$($RESET)"
 Write-Host "  $($YELLOW)4. Optionally activate other capabilities as needed (Can be done later after script completion.$($RESET)"
-Write-Host "  $($YELLOW)5. Wait for activation to complete (status will change to '$($GREEN)Active$($RESET)$($YELLOW)').$($RESET)"
+Write-Host "  $($YELLOW)5. Wait for activation to complete (status will change to '$($GREEN_BG)$($WHITE)Active$($RESET)$($YELLOW)').$($RESET)"
 Write-Host "  $($YELLOW)6. Return to this script and press$($RESET) '$($BOLD_WHITE)y$($RESET)' $($YELLOW)to continue.$($RESET)"
 
 Write-Host ""
@@ -1244,7 +1240,7 @@ Write-Host ""
 Write-Host "  $($CYAN)Listing all new role collections and assigning them to user...$($RESET)"
 
 #
-# ASSIGN ROLE COLLECTIONS TO USER 
+# ASSIGN REMAINING ROLE COLLECTIONS TO USER 
 #
 
 # Get all role collections using JSON format
@@ -1341,7 +1337,7 @@ Write-Host "  $($CYAN)- Integration Flow Token URL: $($BOLD_WHITE)$tokenurl$($RE
 Write-Host "  $($CYAN)- Integration Flow Client ID: $($BOLD_WHITE)$clientid$($RESET)"
 Write-Host "  $($CYAN)- Integration Flow Secret: $($BOLD_WHITE)$clientsecret$($RESET)"
 Write-Host "  $($CYAN)- Role Collections:$($RESET)"
-Write-Host "  $($WHITE)$($rolesList -join "`n")$($RESET)"
+Write-Host "$($WHITE)$($rolesList -join "`n")$($RESET)"
 Write-Host ""
 Write-Host "  $($BOLD_GREEN)You can now access the Integration Suite at: $($BOLD_WHITE)$integration_suite_url$($RESET)"
 Write-Host ""
