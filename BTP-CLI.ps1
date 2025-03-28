@@ -185,16 +185,14 @@ function Get-OSType {
 # Function to install CF CLI
 function Install-CF {
     $osType = Get-OSType
-    $installPath = "."
     
     switch ($osType) {
         "Windows" {
             Write-Host ""
             Write-Host "$($BOLD_CYAN)  ⬇ Downloading and Installing CF CLI for$($RESET) $($BOLD_WHITE)Windows$($BOLD_CYAN)...$($RESET)"
-            $result = Start-ProcessingAnimation -Activity "  Downloading CF CLI for Windows" -ScriptBlock {
-                Invoke-WebRequest -Uri "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/cf8-cli_8.11.0_winx64.zip" -OutFile "cf-cli.zip"
-                Expand-Archive -Path "cf-cli.zip" -DestinationPath $using:installPath -Force 2>$null
-                
+            $result = Start-ProcessingAnimation -Activity "  Downloading BTP CLI for Windows" -ScriptBlock {
+                & curl -L "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/cf8-cli_8.11.0_winx64.tar.gz"  2>$null| tar -zx
+
                 return @{
                     Output = $output
                     ExitCode = $LASTEXITCODE
@@ -266,16 +264,14 @@ function Install-CF {
 # Function to install BTP CLI
 function Install-BTP {
     $osType = Get-OSType
-    $installPath = "."
 
     switch ($osType) {
         "Windows" {
             Write-Host ""
             Write-Host "$($BOLD_CYAN)  ⬇ Downloading and Installing BTP CLI for$($RESET) $($BOLD_WHITE)Windows$($BOLD_CYAN)...$($RESET)"
             $result = Start-ProcessingAnimation -Activity "  Downloading BTP CLI for Windows" -ScriptBlock {
-                Invoke-WebRequest -Uri "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/btp-cli-windows-amd64-2.83.0.zip" -OutFile "btp-cli.zip"
-                Expand-Archive -Path "btp-cli.zip" -DestinationPath $using:installPath -Force 2>$null
-    
+                & curl -L "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/btp-cli-windows-amd64-2.83.0.tar.gz"  2>$null| tar -zx
+
                 return @{
                     Output = $output
                     ExitCode = $LASTEXITCODE
