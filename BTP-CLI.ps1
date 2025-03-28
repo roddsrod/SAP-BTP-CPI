@@ -191,7 +191,7 @@ function Install-CF {
             Write-Host ""
             Write-Host "$($BOLD_CYAN)  ⬇ Downloading and Installing CF CLI for$($RESET) $($BOLD_WHITE)Windows$($BOLD_CYAN)...$($RESET)"
             $result = Start-ProcessingAnimation -Activity "  Downloading BTP CLI for Windows" -ScriptBlock {
-                & curl -L "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/cf8-cli_8.11.0_winx64.tar.gz"  2>$null| tar -zx
+                & curl -L "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/cf8-cli_8.11.0_winx64.tar.gz"  2>$null | tar -zx
 
                 return @{
                     Output = $output
@@ -270,7 +270,7 @@ function Install-BTP {
             Write-Host ""
             Write-Host "$($BOLD_CYAN)  ⬇ Downloading and Installing BTP CLI for$($RESET) $($BOLD_WHITE)Windows$($BOLD_CYAN)...$($RESET)"
             $result = Start-ProcessingAnimation -Activity "  Downloading BTP CLI for Windows" -ScriptBlock {
-                & curl -L "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/btp-cli-windows-amd64-2.83.0.tar.gz"  2>$null| tar -zx
+                & curl -L "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/btp-cli-windows-amd64-2.83.0.tar.gz"  2>$null | tar -zx
 
                 return @{
                     Output = $output
@@ -291,7 +291,7 @@ function Install-BTP {
                 Write-Host ""
                 Write-Host "$($BOLD_CYAN)  ⬇ Downloading and Installing BTP CLI for$($RESET) $($BOLD_WHITE)MacOS (ARM64)$($BOLD_CYAN)...$($RESET)"
                 $result = Start-ProcessingAnimation -Activity "  Downloading BTP CLI for MacOS (ARM64)" -ScriptBlock {
-                    & curl -L "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/btp-cli-darwin-arm64-2.83.0.tar.gz"  2>$null| tar -zx
+                    & curl -L "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/btp-cli-darwin-arm64-2.83.0.tar.gz"  2>$null | tar -zx
     
                     return @{
                         Output = $output
@@ -302,7 +302,7 @@ function Install-BTP {
                 Write-Host ""
                 Write-Host "$($BOLD_CYAN)  ⬇ Downloading and Installing BTP CLI for$($RESET) $($BOLD_WHITE)MacOS (x64)$($BOLD_CYAN)...$($RESET)"
                 $result = Start-ProcessingAnimation -Activity "  Downloading BTP CLI for MacOS (x64)" -ScriptBlock {
-                    & curl -L "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/btp-cli-darwin-amd64-2.83.0.tar.gz"  2>$null| tar -zx
+                    & curl -L "https://raw.githubusercontent.com/roddsrod/SAP-BTP-CPI/refs/heads/main/Dependencies/btp-cli-darwin-amd64-2.83.0.tar.gz"  2>$null | tar -zx
     
                     return @{
                         Output = $output
