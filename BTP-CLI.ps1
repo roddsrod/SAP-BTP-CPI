@@ -1202,7 +1202,7 @@ Write-Host ""
 # Create Process Integration Runtime service instance (integration-flow plan)
 Write-Host "  $($CYAN)Creating Process Integration Runtime instance (integration-flow plan)...$($RESET)"
 $result = Start-ProcessingAnimation -Activity "  Creating Process Integration Runtime instance (integration-flow plan)" -ScriptBlock {
-  & ./cf create-service it-rt integration-flow pi-runtime 2>$null
+  & ./cf create-service it-rt integration-flow pi-runtime -c '{"roles": ["ESBMessaging.send"], "grant-types": ["client_credentials"], "redirect-uris": [], "token-validity": 43600}' 2>$null
   
   return @{
       ExitCode = $LASTEXITCODE
