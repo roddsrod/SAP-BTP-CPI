@@ -28,7 +28,7 @@ This script performs the following operations:
 
 - SAP BTP account with trial or enterprise global account
 - No existing Integration Suite subscription in your global account (limit: 1 per global account)
-- PowerShell 5.1+ (Windows) or PowerShell Core 6.0+ (all platforms)
+- PowerShell Core 6.0+ (all platforms)
 
 ## 🚀 Quick Start
 
